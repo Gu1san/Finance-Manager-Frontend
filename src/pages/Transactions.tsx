@@ -5,9 +5,12 @@ import { IBalance, IPieChartValue, ITransaction } from "../types";
 import PieChartComponent from "../components/PieChart";
 
 export default function Transactions() {
-  const [transactionsByCategory, setTransactionsByCategory] = useState<
+  const [expensesByCategory, setExpensesByCategory] = useState<
     IPieChartValue[]
   >([]);
+  const [incomesByCategory, setIncomesByCategory] = useState<IPieChartValue[]>(
+    []
+  );
   const [form, setForm] = useState({
     description: "",
     amount: "",
@@ -23,15 +26,43 @@ export default function Transactions() {
   });
 
   const fetchData = async () => {
-    const categoryRes = await api.get("/transactions");
+    const transactionsRes = await api.get("/transactions");
     const balanceRes = await api.get("/transactions/balance");
+    const transactions: ITransaction[] = transactionsRes.data;
 
-    const filteredData = categoryRes.data.map((item: ITransaction) => ({
-      name: item.category,
-      value: item.amount,
-    }));
+    const categoryMap: Record<string, { entrada: number; saida: number }> = {};
 
-    setTransactionsByCategory(filteredData);
+    for (const t of transactions) {
+      const cat = t.category;
+      const amount = Number(t.amount);
+
+      if (!categoryMap[cat]) {
+        categoryMap[cat] = { entrada: 0, saida: 0 };
+      }
+
+      if (t.type === "entrada") {
+        categoryMap[cat].entrada += amount;
+      } else {
+        categoryMap[cat].saida += amount;
+      }
+    }
+
+    // Transformar o objeto em array
+    const expensesData = Object.entries(categoryMap)
+      .map(([category, values]) => {
+        if (values.saida === 0) return null;
+        return { name: category, value: values.saida };
+      })
+      .filter((e) => e !== null);
+    const incomesData = Object.entries(categoryMap)
+      .map(([category, values]) => {
+        if (values.entrada === 0) return null;
+        return { name: category, value: values.entrada };
+      })
+      .filter((e) => e !== null);
+
+    setExpensesByCategory(expensesData);
+    setIncomesByCategory(incomesData);
     setBalance(balanceRes.data.balance);
   };
 
@@ -134,10 +165,18 @@ export default function Transactions() {
       </form>
 
       {/* Gráfico de categorias */}
-      <div className="bg-white p-6 rounded-xl shadow flex flex-col items-center">
-        <h2 className="text-lg font-semibold mb-4">Gastos por Categoria</h2>
-        <div className="w-full h-80">
-          <PieChartComponent name="Sla" values={transactionsByCategory} />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="bg-white p-6 rounded-xl shadow flex flex-col items-center">
+          <h2 className="text-lg font-semibold mb-4">Gastos por Categoria</h2>
+          <div className="w-full h-80">
+            <PieChartComponent name="Sla" values={expensesByCategory} />
+          </div>
+        </div>
+        <div className="bg-white p-6 rounded-xl shadow flex flex-col items-center">
+          <h2 className="text-lg font-semibold mb-4">Ganhos por Categoria</h2>
+          <div className="w-full h-80">
+            <PieChartComponent name="Sla" values={incomesByCategory} />
+          </div>
         </div>
       </div>
     </div>
