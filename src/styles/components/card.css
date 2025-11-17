@@ -1,0 +1,16 @@
+.main {
+  background-color: #d1d1d1;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  align-items: center;
+}
+
+h2 {
+  color: black;
+}
+
+p {
+  color: black;
+}
