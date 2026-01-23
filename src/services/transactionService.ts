@@ -18,4 +18,8 @@ export const transactionService = {
       amount: Number(transaction.amount),
     });
   },
+
+  async delete(id: string) {
+    await api.delete(`/transactions/${id}`);
+  },
 };

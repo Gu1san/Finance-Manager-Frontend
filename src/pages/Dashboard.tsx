@@ -11,7 +11,7 @@ export default function Dashboard() {
     balance,
     expensesByCategory,
     incomesByCategory,
-    recentTransactions,
+    transactions,
     createTransaction,
   } = useTransaction();
 
@@ -22,6 +22,20 @@ export default function Dashboard() {
     date: "",
     type: "entrada",
   });
+
+  const [recentTransactions, setRecentTransactions] = useState<ITransaction[]>(
+    [],
+  );
+
+  useEffect(() => {
+    if (transactions === undefined || transactions.length <= 0) return;
+    setRecentTransactions(
+      transactions
+        .slice()
+        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+        .slice(0, 5),
+    );
+  }, [transactions]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();

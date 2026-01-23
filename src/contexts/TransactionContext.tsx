@@ -12,8 +12,9 @@ interface TransactionContextData {
   balance: IBalance;
   expensesByCategory: IPieChartValue[];
   incomesByCategory: IPieChartValue[];
-  recentTransactions: ITransaction[];
+  transactions: ITransaction[];
   createTransaction: (data: Omit<ITransaction, "id">) => Promise<void>;
+  deleteTransaction: (id: string) => Promise<void>;
   refresh: () => Promise<void>;
 }
 
@@ -32,9 +33,7 @@ export function TransactionProvider({ children }: { children: ReactNode }) {
   const [incomesByCategory, setIncomesByCategory] = useState<IPieChartValue[]>(
     [],
   );
-  const [recentTransactions, setRecentTransactions] = useState<ITransaction[]>(
-    [],
-  );
+  const [transactions, setTransactions] = useState<ITransaction[]>([]);
 
   async function refresh() {
     const transactions = await transactionService.getAll();
@@ -62,11 +61,7 @@ export function TransactionProvider({ children }: { children: ReactNode }) {
         .map(([name, v]) => ({ name, value: v.entrada })),
     );
 
-    setRecentTransactions(
-      transactions
-        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-        .slice(0, 5),
-    );
+    setTransactions(transactions);
 
     setBalance(balanceData);
   }
@@ -76,7 +71,13 @@ export function TransactionProvider({ children }: { children: ReactNode }) {
     await refresh();
   }
 
+  async function deleteTransaction(id: string) {
+    await transactionService.delete(id);
+    await refresh();
+  }
+
   useEffect(() => {
+    console.log("Refreshing transaction data...");
     refresh();
   }, []);
 
@@ -86,8 +87,9 @@ export function TransactionProvider({ children }: { children: ReactNode }) {
         balance,
         expensesByCategory,
         incomesByCategory,
-        recentTransactions,
+        transactions,
         createTransaction,
+        deleteTransaction,
         refresh,
       }}
     >
