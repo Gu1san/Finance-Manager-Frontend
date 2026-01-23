@@ -1,12 +1,4 @@
-import { ReactNode } from "react";
-
-interface CardProps {
-  title?: string;
-  subtitle?: string;
-  children: ReactNode;
-  className?: string;
-  footer?: ReactNode;
-}
+import { CardProps } from "../types";
 
 export default function Card({
   title,
@@ -16,9 +8,11 @@ export default function Card({
   footer,
 }: CardProps) {
   return (
-    <div className={`main ${className}`}>
+    <div
+      className={`bg-white rounded-xl shadow p-5 flex flex-col ${className}`}
+    >
       {(title || subtitle) && (
-        <div className="mb-3">
+        <div className="mb-4">
           {title && (
             <h2 className="text-lg font-semibold text-gray-800">{title}</h2>
           )}
@@ -26,7 +20,7 @@ export default function Card({
         </div>
       )}
 
-      <div className="flex-1 flex items-center justify-center">{children}</div>
+      <div className="flex-1">{children}</div>
 
       {footer && <div className="mt-4 border-t pt-3">{footer}</div>}
     </div>

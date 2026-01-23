@@ -27,3 +27,11 @@ export interface IPieChartValue {
   name: string;
   value: number;
 }
+
+export interface CardProps {
+  title?: string;
+  subtitle?: string;
+  children: React.ReactNode;
+  className?: string;
+  footer?: React.ReactNode;
+}

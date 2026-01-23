@@ -11,7 +11,8 @@ export default function BalanceCard({
     <div className="bg-white p-5 rounded-xl shadow flex flex-col items-start justify-center">
       <span className="text-sm text-gray-500">{title}</span>
       <span className={`text-2xl font-semibold ${color}`}>
-        {value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
+        {value &&
+          value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
       </span>
     </div>
   );

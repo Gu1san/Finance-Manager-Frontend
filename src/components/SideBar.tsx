@@ -13,7 +13,6 @@ export default function Sidebar({
 
   const menuItems = [
     { name: "Dashboard", icon: Home, key: "dashboard" },
-    { name: "Transações", icon: CreditCard, key: "transactions" },
     { name: "Extrato", icon: List, key: "report" },
     { name: "Perfil", icon: User, key: "profile" },
   ];

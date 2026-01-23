@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Transactions from "../pages/Transactions";
+import Transactions from "../pages/Dashboard";
 import Sidebar from "../components/SideBar";
 import Report from "../pages/Report";
 
