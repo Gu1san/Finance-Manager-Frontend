@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import Transactions from "../pages/Dashboard";
 import Sidebar from "../components/SideBar";
 import Report from "../pages/Report";
+import Dashboard from "../pages/Dashboard";
 
 export default function App() {
   const [activePage, setActivePage] = useState("dashboard");
@@ -11,14 +11,11 @@ export default function App() {
   const renderPage = () => {
     switch (activePage) {
       case "transactions":
-        return <Transactions />;
+        return <Dashboard />;
       case "report":
         return <Report />;
-      /*case "profile":
-        return <Profile />;
-        */
       default:
-        return <Transactions />;
+        return <Dashboard />;
     }
   };
 

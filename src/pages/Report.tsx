@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import api from "../api/api";
 import { ITransaction } from "../types";
 import { Trash2 } from "lucide-react";
-import { useTransaction } from "../hooks/useTransaction";
+import { useTransactionContext } from "../hooks/useTransaction";
 
 export default function Report() {
-  const { transactions, deleteTransaction } = useTransaction();
+  const { transactions, deleteTransaction } = useTransactionContext();
 
   return (
     <div className="p-6 w-full max-w-3xl mx-auto">

@@ -18,9 +18,12 @@ interface TransactionContextData {
   refresh: () => Promise<void>;
 }
 
-const TransactionContext = createContext({} as TransactionContextData);
+export const TransactionContext = createContext<
+  TransactionContextData | undefined
+>(undefined);
 
 export function TransactionProvider({ children }: { children: ReactNode }) {
+  console.log("TransactionProvider rendered");
   const [balance, setBalance] = useState<IBalance>({
     total: 0,
     entradas: 0,
@@ -96,8 +99,4 @@ export function TransactionProvider({ children }: { children: ReactNode }) {
       {children}
     </TransactionContext.Provider>
   );
-}
-
-export function useTransactionContext() {
-  return useContext(TransactionContext);
 }

@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import api from "../api/api";
 import BalanceCard from "../components/BalanceCard";
 import { IBalance, IPieChartValue, ITransaction } from "../types";
 import PieChartComponent from "../components/PieChart";
 import Card from "../components/Card";
-import { useTransaction } from "../hooks/useTransaction";
+import { useTransactionContext } from "../hooks/useTransaction";
 
 export default function Dashboard() {
   const {
@@ -13,7 +13,8 @@ export default function Dashboard() {
     incomesByCategory,
     transactions,
     createTransaction,
-  } = useTransaction();
+    refresh,
+  } = useTransactionContext();
 
   const [form, setForm] = useState({
     description: "",
