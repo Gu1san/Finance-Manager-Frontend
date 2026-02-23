@@ -1,10 +1,11 @@
+"use client";
+
 import { useContext, useEffect, useState } from "react";
-import api from "../api/api";
-import BalanceCard from "../components/BalanceCard";
-import { IBalance, IPieChartValue, ITransaction } from "../types";
-import PieChartComponent from "../components/PieChart";
-import Card from "../components/Card";
-import { useTransactionContext } from "../hooks/useTransaction";
+import BalanceCard from "@/src/components/BalanceCard";
+import { IBalance, IPieChartValue, ITransaction } from "@/src/types";
+import PieChartComponent from "@/src/components/PieChart";
+import Card from "@/src/components/Card";
+import { useTransactionContext } from "@/src/hooks/useTransaction";
 
 export default function Dashboard() {
   const {

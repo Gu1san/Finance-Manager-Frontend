@@ -1,8 +1,6 @@
-import { useEffect, useState } from "react";
-import api from "../api/api";
-import { ITransaction } from "../types";
+"use client";
 import { Trash2 } from "lucide-react";
-import { useTransactionContext } from "../hooks/useTransaction";
+import { useTransactionContext } from "@/src//hooks/useTransaction";
 
 export default function Report() {
   const { transactions, deleteTransaction } = useTransactionContext();

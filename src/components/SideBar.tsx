@@ -1,20 +1,17 @@
 import { Home, List, CreditCard, User } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 
-export default function Sidebar({
-  onNavigate,
-  active,
-}: {
-  onNavigate?: (key: string) => void;
-  active?: string;
-}) {
+export default function Sidebar({ active }: { active?: string }) {
   const [hovered, setHovered] = useState<string | null>(null);
 
+  const router = useRouter();
+
   const menuItems = [
-    { name: "Dashboard", icon: Home, key: "dashboard" },
-    { name: "Extrato", icon: List, key: "report" },
-    { name: "Perfil", icon: User, key: "profile" },
+    { name: "Dashboard", icon: Home, path: "/dashboard" },
+    { name: "Extrato", icon: List, path: "/report" },
+    { name: "Perfil", icon: User, path: "/profile" },
   ];
 
   return (
@@ -27,14 +24,14 @@ export default function Sidebar({
       <div className="flex flex-col gap-6 mt-10">
         {menuItems.map((item) => {
           const Icon = item.icon;
-          const isActive = active === item.key;
-          const isHovered = hovered === item.key;
+          const isActive = active === item.path;
+          const isHovered = hovered === item.path;
 
           return (
             <button
-              key={item.key}
-              onClick={() => onNavigate?.(item.key)}
-              onMouseEnter={() => setHovered(item.key)}
+              key={item.path}
+              onClick={() => router.push(item.path)}
+              onMouseEnter={() => setHovered(item.path)}
               onMouseLeave={() => setHovered(null)}
               className={`relative flex flex-col items-center p-2 rounded-xl transition-all duration-200 ${
                 isActive

@@ -20,7 +20,5 @@ export default function ProtectedRoute({
 
   if (loading) return <p className="p-6">Carregando...</p>;
 
-  if (!isAuthenticated) return null;
-
   return <>{children}</>;
 }
