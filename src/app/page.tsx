@@ -1,28 +1,18 @@
 "use client";
 
-import { useState } from "react";
-import Sidebar from "../components/SideBar";
-import Report from "../pages/Report";
-import Dashboard from "../pages/Dashboard";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "../contexts/AuthContexts";
 
-export default function App() {
-  const [activePage, setActivePage] = useState("dashboard");
+export default function Home() {
+  const { loading, user } = useAuth();
+  const router = useRouter();
 
-  const renderPage = () => {
-    switch (activePage) {
-      case "transactions":
-        return <Dashboard />;
-      case "report":
-        return <Report />;
-      default:
-        return <Dashboard />;
+  useEffect(() => {
+    if (!loading && !user) {
+      router.push("/login");
     }
-  };
+  }, [loading, user]);
 
-  return (
-    <div className="min-h-screen flex bg-gray-100">
-      <Sidebar active={activePage} onNavigate={setActivePage} />
-      <main className="flex-1 p-6">{renderPage()}</main>
-    </div>
-  );
+  return null;
 }

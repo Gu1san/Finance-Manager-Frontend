@@ -23,7 +23,6 @@ export const TransactionContext = createContext<
 >(undefined);
 
 export function TransactionProvider({ children }: { children: ReactNode }) {
-  console.log("TransactionProvider rendered");
   const [balance, setBalance] = useState<IBalance>({
     total: 0,
     entradas: 0,

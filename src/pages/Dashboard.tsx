@@ -107,7 +107,12 @@ export default function Dashboard() {
           <select
             className="border rounded p-2"
             value={form.type}
-            onChange={(e) => setForm({ ...form, type: e.target.value })}
+            onChange={(e) =>
+              setForm({
+                ...form,
+                type: e.target.value === "Entrada" ? "entrada" : "saida",
+              })
+            }
           >
             <option value="entrada">Entrada</option>
             <option value="saida">Saída</option>
