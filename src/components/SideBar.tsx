@@ -1,12 +1,13 @@
 import { Home, List, CreditCard, User } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 export default function Sidebar({ active }: { active?: string }) {
   const [hovered, setHovered] = useState<string | null>(null);
 
   const router = useRouter();
+  const pathName = usePathname();
 
   const menuItems = [
     { name: "Dashboard", icon: Home, path: "/dashboard" },
@@ -24,7 +25,7 @@ export default function Sidebar({ active }: { active?: string }) {
       <div className="flex flex-col gap-6 mt-10">
         {menuItems.map((item) => {
           const Icon = item.icon;
-          const isActive = active === item.path;
+          const isActive = pathName.startsWith(item.path);
           const isHovered = hovered === item.path;
 
           return (
