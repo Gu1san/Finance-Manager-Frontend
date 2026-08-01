@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Gerenciador Financeiro - Frontend
 
-## Getting Started
+## Visão Geral
+O Gerenciador Financeiro é uma aplicação web desenvolvida para facilitar o controle de finanças pessoais, permitindo que os usuários acompanhem receitas, despesas e saldo de forma simples e intuitiva.
 
-First, run the development server:
+Este projeto foi desenvolvido utilizando **React** com **Next.js**, consumindo a API do Gerenciador Financeiro para realizar operações de cadastro, edição, exclusão e visualização de transações. A interface foi construída com foco em experiência do usuário, responsividade e organização das informações financeiras.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+O repositório da API pode ser encontrado [aqui](https://github.com/Gu1san/Finance-Manager-Backend)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Funcionalidades Principais
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Dashboard Financeiro:**
+  - Visualização do saldo atual.
+  - Resumo de entradas e saídas.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Gerenciamento de Transações:**
+  - Cadastro de novas transações.
+  - Edição e exclusão de registros.
+  - Listagem completa das movimentações financeiras.
 
-## Learn More
+- **Categorias:**
+  - Exibição das categorias cadastradas.
+  - Associação de categorias às transações.
 
-To learn more about Next.js, take a look at the following resources:
+- **Integração com API:**
+  - Consumo de endpoints REST para operações de CRUD.
+  - Atualização automática da interface após alterações.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Interface Responsiva:**
+  - Layout adaptado para desktop e dispositivos móveis.
+  - Navegação intuitiva e organizada.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Tecnologias Utilizadas
 
-## Deploy on Vercel
+- **React:** construção da interface baseada em componentes reutilizáveis.
+- **Next.js:** estrutura da aplicação, roteamento e otimizações de performance.
+- **TypeScript:** tipagem estática para maior segurança e produtividade.
+- **Tailwind CSS:** estilização rápida e responsiva.
+- **Axios:** comunicação com a API do backend.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Aprendizados e Destaques
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Desenvolvimento de uma interface moderna utilizando React e Next.js.
+- Organização do projeto em componentes reutilizáveis.
+- Integração entre frontend e backend por meio de uma API REST.
+- Gerenciamento de estado da aplicação e atualização dinâmica da interface.
+- Aplicação de boas práticas de componentização e tipagem com TypeScript.
+
+## Próximos Passos
+
+- Implementar autenticação de usuários.
+- Adicionar gráficos e dashboards financeiros.
+- Implementar filtros por período e categoria.
+- Adicionar paginação e busca de transações.
+- Implementar testes unitários e de integração.
+- Melhorar a experiência mobile.
+
+## Atualizações
+
+- Integração completa com a API do Gerenciador Financeiro.
+- Implementação das operações de CRUD de transações.
