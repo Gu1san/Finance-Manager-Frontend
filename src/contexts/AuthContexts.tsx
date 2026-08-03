@@ -37,9 +37,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   async function signup(name: string, email: string, password: string) {
     try {
-      await authService.register(name, email, password);
       setLoading(true);
-      await authService.login(email, password);
+      await authService.register(name, email, password);
+      await login(email, password);
     } catch (err: any) {
       alert(err.response?.data?.message || "Erro ao cadastrar");
     } finally {
