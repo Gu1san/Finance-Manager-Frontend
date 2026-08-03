@@ -20,6 +20,10 @@ export async function register(name: string, email: string, password: string) {
 }
 
 export async function me() {
-  const { data } = await api.get("/auth/me");
-  return data;
+  try {
+    const { data } = await api.get("/auth/me");
+    return data;
+  } catch {
+    console.error("Erro ao obter usuário");
+  }
 }

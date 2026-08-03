@@ -11,6 +11,7 @@ type User = {
 type AuthContextData = {
   user: User | null;
   isAuthenticated: boolean;
+  signup: (name: string, email: string, password: string) => Promise<void>;
   login: (email: string, password: string) => Promise<void>;
   logout: () => Promise<void>;
   loading: boolean;
@@ -28,6 +29,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setUser(user);
     } catch {
       setUser(null);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function signup(name: string, email: string, password: string) {
+    try {
+      await authService.register(name, email, password);
+      setLoading(true);
+      await authService.login(email, password);
+    } catch (err: any) {
+      alert(err.response?.data?.message || "Erro ao cadastrar");
     } finally {
       setLoading(false);
     }
@@ -52,6 +65,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       value={{
         user,
         isAuthenticated: !!user,
+        signup,
         login,
         logout,
         loading,

@@ -3,8 +3,13 @@ import { ITransaction } from "../types";
 
 export const transactionService = {
   async getAll(): Promise<ITransaction[]> {
-    const { data } = await api.get("/transactions");
-    return data;
+    try {
+      const { data } = await api.get("/transactions");
+      return Promise.resolve(data);
+    } catch (err) {
+      console.error(err);
+      return Promise.reject(err);
+    }
   },
 
   async getBalance() {

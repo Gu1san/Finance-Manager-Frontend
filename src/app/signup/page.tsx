@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import * as authService from "../../services/authService";
+import { useAuth } from "@/src/contexts/AuthContexts";
 
 export default function SignupPage() {
   const router = useRouter();
@@ -11,26 +11,21 @@ export default function SignupPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [loading, setLoading] = useState(false);
+  const { signup, loading } = useAuth();
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setLoading(true);
 
     try {
-      await authService.register(name, email, password);
-
-      await authService.login(email, password);
+      await signup(name, email, password);
       router.push("/dashboard");
     } catch (err: any) {
       alert(err.response?.data?.message || "Erro ao cadastrar");
-    } finally {
-      setLoading(false);
     }
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
+    <div className="min-h-screen flex items-center justify-center">
       <form
         onSubmit={handleSubmit}
         className="bg-white p-8 rounded shadow-md w-80"
