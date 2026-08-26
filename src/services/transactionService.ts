@@ -3,18 +3,29 @@ import { ITransaction } from "../types";
 
 export const transactionService = {
   async getAll(): Promise<ITransaction[]> {
-    try {
-      const { data } = await api.get("/transactions");
-      return Promise.resolve(data);
-    } catch (err) {
-      console.error(err);
-      return Promise.reject(err);
-    }
+    const { data } = await api.get("/transactions");
+    return data;
   },
 
-  async getBalance() {
-    const { data } = await api.get("/transactions/balance");
-    return data.balance;
+  async getById(id: string): Promise<ITransaction> {
+    const { data } = await api.get(`/transactions/${id}`);
+    return data;
+  },
+
+  async getByCategory(category: string): Promise<ITransaction[]> {
+    const { data } = await api.get("/transactions/category", {
+      params: { category },
+    });
+
+    return data;
+  },
+
+  async getByType(type: "entrada" | "saida"): Promise<ITransaction[]> {
+    const { data } = await api.get("/transactions/type", {
+      params: { type },
+    });
+
+    return data;
   },
 
   async create(transaction: Omit<ITransaction, "id">) {

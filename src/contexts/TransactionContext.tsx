@@ -1,4 +1,5 @@
 "use client";
+
 import {
   createContext,
   useContext,
@@ -6,14 +7,11 @@ import {
   useState,
   ReactNode,
 } from "react";
-import { IBalance, IPieChartValue, ITransaction } from "../types";
+import { ITransaction } from "../types";
 import { transactionService } from "../services/transactionService";
 import { useAuth } from "./AuthContexts";
 
 interface TransactionContextData {
-  balance: IBalance;
-  expensesByCategory: IPieChartValue[];
-  incomesByCategory: IPieChartValue[];
   transactions: ITransaction[];
   createTransaction: (data: Omit<ITransaction, "id">) => Promise<void>;
   deleteTransaction: (id: string) => Promise<void>;
@@ -25,53 +23,19 @@ export const TransactionContext = createContext<
 >(undefined);
 
 export function TransactionProvider({ children }: { children: ReactNode }) {
-  const [balance, setBalance] = useState<IBalance>({
-    total: 0,
-    entradas: 0,
-    saidas: 0,
-  });
-
-  const [expensesByCategory, setExpensesByCategory] = useState<
-    IPieChartValue[]
-  >([]);
-  const [incomesByCategory, setIncomesByCategory] = useState<IPieChartValue[]>(
-    [],
-  );
   const [transactions, setTransactions] = useState<ITransaction[]>([]);
 
   const { isAuthenticated } = useAuth();
 
   async function refresh() {
-    if (!isAuthenticated) return;
+    if (!isAuthenticated) {
+      setTransactions([]);
+      return;
+    }
 
-    const transactions = await transactionService.getAll();
-    const balanceData = await transactionService.getBalance();
+    const data = await transactionService.getAll();
 
-    const categoryMap: Record<string, { entrada: number; saida: number }> = {};
-
-    transactions.forEach((t) => {
-      if (!categoryMap[t.category]) {
-        categoryMap[t.category] = { entrada: 0, saida: 0 };
-      }
-
-      categoryMap[t.category][t.type] += Number(t.amount);
-    });
-
-    setExpensesByCategory(
-      Object.entries(categoryMap)
-        .filter(([, v]) => v.saida > 0)
-        .map(([name, v]) => ({ name, value: v.saida })),
-    );
-
-    setIncomesByCategory(
-      Object.entries(categoryMap)
-        .filter(([, v]) => v.entrada > 0)
-        .map(([name, v]) => ({ name, value: v.entrada })),
-    );
-
-    setTransactions(transactions);
-
-    setBalance(balanceData);
+    setTransactions(data);
   }
 
   async function createTransaction(data: Omit<ITransaction, "id">) {
@@ -85,16 +49,16 @@ export function TransactionProvider({ children }: { children: ReactNode }) {
   }
 
   useEffect(() => {
-    console.log("Refreshing transaction data...");
-    refresh();
-  }, []);
+    if (isAuthenticated) {
+      refresh();
+    } else {
+      setTransactions([]);
+    }
+  }, [isAuthenticated]);
 
   return (
     <TransactionContext.Provider
       value={{
-        balance,
-        expensesByCategory,
-        incomesByCategory,
         transactions,
         createTransaction,
         deleteTransaction,
