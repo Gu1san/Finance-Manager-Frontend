@@ -1,4 +1,4 @@
-// contexts/AuthContext.tsx
+"use client";
 import { createContext, useContext, useEffect, useState } from "react";
 import * as authService from "../services/authService";
 
@@ -27,7 +27,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       const user = await authService.me();
 
-      setUser(!user.name ? null : user);
+      setUser(user);
     } catch {
       setUser(null);
     } finally {
@@ -48,8 +48,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   async function login(email: string, password: string) {
-    const user = await authService.login(email, password);
-    setUser(user);
+    setLoading(true);
+    try {
+      const user = await authService.login(email, password);
+      setUser(user);
+    } catch (err: any) {
+      alert(err.response?.data?.message || "Erro ao fazer login");
+    } finally {
+      setLoading(false);
+    }
   }
 
   async function logout() {

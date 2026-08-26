@@ -2,7 +2,9 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
+
 import { useAuth } from "../contexts/AuthContexts";
+import LoadingScreen from "./LoadingScreen";
 
 export default function ProtectedRoute({
   children,
@@ -14,11 +16,13 @@ export default function ProtectedRoute({
 
   useEffect(() => {
     if (!loading && !isAuthenticated) {
-      router.push("/login");
+      router.replace("/login");
     }
   }, [loading, isAuthenticated, router]);
 
-  if (loading) return <p className="p-6">Carregando...</p>;
+  if (loading || !isAuthenticated) {
+    return <LoadingScreen />;
+  }
 
   return <>{children}</>;
 }

@@ -2,14 +2,12 @@
 
 import Sidebar from "@/src/components/SideBar";
 import ProtectedRoute from "@/src/components/ProtectedRoute";
-import { useRouter } from "next/navigation";
 
 export default function ProtectedLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const router = useRouter();
   return (
     <ProtectedRoute>
       <div className="min-h-screen flex">

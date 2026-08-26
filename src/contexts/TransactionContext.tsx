@@ -8,6 +8,7 @@ import {
 } from "react";
 import { IBalance, IPieChartValue, ITransaction } from "../types";
 import { transactionService } from "../services/transactionService";
+import { useAuth } from "./AuthContexts";
 
 interface TransactionContextData {
   balance: IBalance;
@@ -38,7 +39,11 @@ export function TransactionProvider({ children }: { children: ReactNode }) {
   );
   const [transactions, setTransactions] = useState<ITransaction[]>([]);
 
+  const { isAuthenticated } = useAuth();
+
   async function refresh() {
+    if (!isAuthenticated) return;
+
     const transactions = await transactionService.getAll();
     const balanceData = await transactionService.getBalance();
 
