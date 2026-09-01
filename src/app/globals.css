@@ -1,22 +1,122 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f1f1f1;
-  --foreground: #171717;
-}
+  --background: #f5f5f5;
+  --background-secondary: #ffffff;
+  --background-tertiary: #e7e7e7;
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --foreground: #171717;
+  --foreground-secondary: #404040;
+  --foreground-muted: #737373;
+
+  --hover: #e4e4e4;
+  --active: #d4d4d4;
+
+  --olive-leaf: #778745;
+  --olive-leaf-secondary: #d5dcbc;
+  --olive-leaf-hover: #5a6534;
+  --olive-leaf-active: #3c4323;
+
+  --black-forest: #698d3f;
+  --black-forest-secondary: #cddfb9;
+  --black-forest-hover: #4e6a2f;
+  --black-forest-active: #344620;
+
+  --cornsilk: #c6ac06;
+  --cornsilk-secondary: #fcef9c;
+  --cornsilk-hover: #948105;
+  --cornsilk-active: #635603;
+
+  --sunlit-clay: #a86a24;
+  --sunlit-clay-secondary: #edceab;
+  --sunlit-clay-hover: #7e501b;
+  --sunlit-clay-active: #543512;
+
+  --copperwood: #aa6122;
+  --copperwood-secondary: #eecaaa;
+  --copperwood-hover: #804919;
+  --copperwood-active: #553111;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
-    --foreground: #ededed;
+    --background-secondary: #151515;
+    --background-tertiary: #202020;
+
+    --foreground: #f1f1f1;
+    --foreground-secondary: #d4d4d4;
+    --foreground-muted: #a3a3a3;
+
+    --hover: #2a2a2a;
+    --active: #363636;
+
+    --olive-leaf: #aaba78;
+    --olive-leaf-secondary: #3c4323;
+    --olive-leaf-hover: #c0cb9a;
+    --olive-leaf-active: #95a857;
+
+    --black-forest: #9cc072;
+    --black-forest-secondary: #344620;
+    --black-forest-hover: #b4d095;
+    --black-forest-active: #83b04f;
+
+    --cornsilk: #f9df39;
+    --cornsilk-secondary: #635603;
+    --cornsilk-hover: #fae76b;
+    --cornsilk-active: #f7d708;
+
+    --sunlit-clay: #db9d57;
+    --sunlit-clay-secondary: #543512;
+    --sunlit-clay-hover: #e4b681;
+    --sunlit-clay-active: #d2852d;
+
+    --copperwood: #dd9455;
+    --copperwood-secondary: #553111;
+    --copperwood-hover: #e6af7f;
+    --copperwood-active: #d57a2a;
   }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-background-secondary: var(--background-secondary);
+  --color-background-tertiary: var(--background-tertiary);
+
+  --color-foreground: var(--foreground);
+  --color-foreground-secondary: var(--foreground-secondary);
+  --color-foreground-muted: var(--foreground-muted);
+
+  --color-hover: var(--hover);
+  --color-active: var(--active);
+
+  --color-olive-leaf: var(--olive-leaf);
+  --color-olive-leaf-secondary: var(--olive-leaf-secondary);
+  --color-olive-leaf-hover: var(--olive-leaf-hover);
+  --color-olive-leaf-active: var(--olive-leaf-active);
+
+  --color-black-forest: var(--black-forest);
+  --color-black-forest-secondary: var(--black-forest-secondary);
+  --color-black-forest-hover: var(--black-forest-hover);
+  --color-black-forest-active: var(--black-forest-active);
+
+  --color-cornsilk: var(--cornsilk);
+  --color-cornsilk-secondary: var(--cornsilk-secondary);
+  --color-cornsilk-hover: var(--cornsilk-hover);
+  --color-cornsilk-active: var(--cornsilk-active);
+
+  --color-sunlit-clay: var(--sunlit-clay);
+  --color-sunlit-clay-secondary: var(--sunlit-clay-secondary);
+  --color-sunlit-clay-hover: var(--sunlit-clay-hover);
+  --color-sunlit-clay-active: var(--sunlit-clay-active);
+
+  --color-copperwood: var(--copperwood);
+  --color-copperwood-secondary: var(--copperwood-secondary);
+  --color-copperwood-hover: var(--copperwood-hover);
+  --color-copperwood-active: var(--copperwood-active);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
 }
 
 body {

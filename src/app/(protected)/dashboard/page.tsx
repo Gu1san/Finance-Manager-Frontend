@@ -1,171 +1,117 @@
 "use client";
 
-import { useContext, useEffect, useState } from "react";
-import BalanceCard from "@/src/components/BalanceCard";
-import { IBalance, IPieChartValue, ITransaction } from "@/src/types";
-import PieChartComponent from "@/src/components/PieChart";
-import Card from "@/src/components/Card";
+import { useState } from "react";
+
+import DashboardCard from "@/src/components/DashboardCard";
+import BalanceSummary from "@/src/components/BalanceSummary";
+import ExpensesByCategory from "@/src/components/ExpensesByCategory";
+import BalanceEvolution from "@/src/components/BalanceEvolution";
+import RecentTransactions from "@/src/components/RecentTransactions";
+import TransactionModal from "@/src/components/TransactionModal";
+import PeriodSelector from "@/src/components/PeriodSelector";
+
+import { useReports } from "@/src/hooks/useReports";
 import { useTransactionContext } from "@/src/hooks/useTransaction";
 
 export default function Dashboard() {
   const {
-    balance,
+    summary,
     expensesByCategory,
-    incomesByCategory,
-    transactions,
-    createTransaction,
-    refresh,
-  } = useTransactionContext();
+    balanceEvolution,
+    period,
+    setPeriod,
+    customPeriod,
+    setCustomPeriod,
+    applyCustomPeriod,
+    loading: reportsLoading,
+    error: reportsError,
+  } = useReports();
 
-  const [form, setForm] = useState({
-    description: "",
-    amount: "",
-    category: "",
-    date: "",
-    type: "entrada",
-  });
+  const { transactions, createTransaction } = useTransactionContext();
 
-  const [recentTransactions, setRecentTransactions] = useState<ITransaction[]>(
-    [],
-  );
+  const [isTransactionModalOpen, setIsTransactionModalOpen] = useState(false);
 
-  useEffect(() => {
-    if (transactions === undefined || transactions.length <= 0) return;
-    setRecentTransactions(
-      transactions
-        .slice()
-        .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-        .slice(0, 5),
+  if (reportsLoading) {
+    return (
+      <div className="flex w-full items-center justify-center p-6">
+        <p className="text-sm text-foreground-secondary">
+          Carregando dashboard...
+        </p>
+      </div>
     );
-  }, [transactions]);
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    await createTransaction(form as any);
-    setForm({
-      description: "",
-      amount: "",
-      category: "",
-      date: "",
-      type: "entrada",
-    });
   }
 
   return (
-    <div className="p-6 w-full max-w-5xl mx-auto flex flex-col gap-8">
-      <h1 className="text-2xl font-bold mb-2">Transações</h1>
+    <>
+      <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 p-6">
+        <header className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h1 className="text-2xl font-bold">Dashboard</h1>
 
-      {/* Cards de resumo */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <BalanceCard
-          title="Saldo total"
-          value={balance?.total}
-          color="text-blue-600"
-        />
-        <BalanceCard
-          title="Entradas"
-          value={balance?.entradas}
-          color="text-green-600"
-        />
-        <BalanceCard
-          title="Saídas"
-          value={balance?.saidas}
-          color="text-red-600"
-        />
-      </div>
+            <p className="mt-1 text-sm text-foreground-secondary">
+              Acompanhe sua vida financeira.
+            </p>
+          </div>
 
-      <Card title="Nova transação" subtitle="Adicione entradas ou saídas">
-        <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-3">
-          <input
-            className="border rounded p-2 col-span-2"
-            placeholder="Descrição"
-            value={form.description}
-            onChange={(e) => setForm({ ...form, description: e.target.value })}
-          />
-
-          <input
-            type="number"
-            className="border rounded p-2"
-            placeholder="Valor"
-            value={form.amount}
-            onChange={(e) => setForm({ ...form, amount: e.target.value })}
-          />
-
-          <input
-            className="border rounded p-2"
-            placeholder="Categoria"
-            value={form.category}
-            onChange={(e) => setForm({ ...form, category: e.target.value })}
-          />
-
-          <input
-            type="date"
-            className="border rounded p-2"
-            value={form.date}
-            onChange={(e) => setForm({ ...form, date: e.target.value })}
-          />
-
-          <select
-            className="border rounded p-2"
-            value={form.type}
-            onChange={(e) =>
-              setForm({
-                ...form,
-                type: e.target.value === "Entrada" ? "entrada" : "saida",
-              })
-            }
+          <button
+            type="button"
+            onClick={() => setIsTransactionModalOpen(true)}
+            className="rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-foreground hover:opacity-90"
           >
-            <option value="entrada">Entrada</option>
-            <option value="saida">Saída</option>
-          </select>
-
-          <button className="bg-blue-500 text-white rounded p-2 col-span-2 hover:bg-blue-600">
-            Salvar transação
+            + Nova transação
           </button>
-        </form>
-      </Card>
+        </header>
 
-      <Card title="Transações recentes">
-        <ul className="space-y-3">
-          {recentTransactions &&
-            recentTransactions.map((t) => (
-              <li key={t.id} className="flex justify-between items-center">
-                <div>
-                  <p className="font-medium text-sm">{t.description}</p>
-                  <p className="text-xs text-gray-500">{t.category}</p>
-                </div>
-
-                <span
-                  className={`font-semibold ${
-                    t.type === "entrada" ? "text-green-600" : "text-red-600"
-                  }`}
-                >
-                  {t.type === "entrada" ? "+" : "-"}
-                  {Number(t.amount).toLocaleString("pt-BR", {
-                    style: "currency",
-                    currency: "BRL",
-                  })}
-                </span>
-              </li>
-            ))}
-        </ul>
-      </Card>
-
-      {/* Gráfico de categorias */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="bg-white p-6 rounded-xl shadow flex flex-col items-center">
-          <h2 className="text-lg font-semibold mb-4">Gastos por Categoria</h2>
-          <div className="w-full h-80">
-            <PieChartComponent name="Sla" values={expensesByCategory} />
-          </div>
+        <div className="flex justify-end">
+          <PeriodSelector
+            period={period}
+            onPeriodChange={setPeriod}
+            customPeriod={customPeriod}
+            onCustomPeriodChange={setCustomPeriod}
+            onApplyCustomPeriod={applyCustomPeriod}
+          />
         </div>
-        <div className="bg-white p-6 rounded-xl shadow flex flex-col items-center">
-          <h2 className="text-lg font-semibold mb-4">Ganhos por Categoria</h2>
-          <div className="w-full h-80">
-            <PieChartComponent name="Sla" values={incomesByCategory} />
-          </div>
+
+        {reportsError && <p className="text-sm text-red-500">{reportsError}</p>}
+
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-4">
+          <DashboardCard colSpan={2} rowSpan={2}>
+            <BalanceSummary summary={summary} />
+          </DashboardCard>
+
+          <DashboardCard
+            title="Gastos por categoria"
+            description="Distribuição das suas despesas no período."
+            colSpan={2}
+            rowSpan={2}
+          >
+            <ExpensesByCategory data={expensesByCategory} />
+          </DashboardCard>
+
+          <DashboardCard
+            title="Evolução do saldo"
+            description="Acompanhe seu saldo ao longo do período."
+            colSpan={2}
+            rowSpan={2}
+          >
+            <BalanceEvolution data={balanceEvolution} />
+          </DashboardCard>
+
+          <DashboardCard
+            title="Últimas transações"
+            description="Suas movimentações mais recentes."
+            colSpan={2}
+          >
+            <RecentTransactions transactions={transactions} />
+          </DashboardCard>
         </div>
       </div>
-    </div>
+
+      <TransactionModal
+        isOpen={isTransactionModalOpen}
+        onClose={() => setIsTransactionModalOpen(false)}
+        onSubmit={createTransaction}
+      />
+    </>
   );
 }
