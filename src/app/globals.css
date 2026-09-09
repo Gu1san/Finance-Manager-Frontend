@@ -1,81 +1,106 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
-  --background: #f5f5f5;
-  --background-secondary: #ffffff;
-  --background-tertiary: #e7e7e7;
+  color-scheme: light dark;
 
-  --foreground: #171717;
-  --foreground-secondary: #404040;
-  --foreground-muted: #737373;
+  /* Paleta */
+  --color-olive-leaf-50: #f4f6ee;
+  --color-olive-leaf-100: #eaeedd;
+  --color-olive-leaf-200: #d5dcbc;
+  --color-olive-leaf-300: #c0cb9a;
+  --color-olive-leaf-400: #aaba78;
+  --color-olive-leaf-500: #95a857;
+  --color-olive-leaf-600: #778745;
+  --color-olive-leaf-700: #5a6534;
+  --color-olive-leaf-800: #3c4323;
+  --color-olive-leaf-900: #1e2211;
+  --color-olive-leaf-950: #15180c;
 
-  --hover: #e4e4e4;
-  --active: #d4d4d4;
+  --color-black-forest-50: #f3f7ed;
+  --color-black-forest-100: #e6efdc;
+  --color-black-forest-200: #cddfb9;
+  --color-black-forest-300: #b4d095;
+  --color-black-forest-400: #9cc072;
+  --color-black-forest-500: #83b04f;
+  --color-black-forest-600: #698d3f;
+  --color-black-forest-700: #4e6a2f;
+  --color-black-forest-800: #344620;
+  --color-black-forest-900: #1a2310;
+  --color-black-forest-950: #12190b;
 
-  --olive-leaf: #778745;
-  --olive-leaf-secondary: #d5dcbc;
-  --olive-leaf-hover: #5a6534;
-  --olive-leaf-active: #3c4323;
+  --color-cornsilk-50: #fefbe6;
+  --color-cornsilk-100: #fdf7ce;
+  --color-cornsilk-200: #fcef9c;
+  --color-cornsilk-300: #fae76b;
+  --color-cornsilk-400: #f9df39;
+  --color-cornsilk-500: #f7d708;
+  --color-cornsilk-600: #c6ac06;
+  --color-cornsilk-700: #948105;
+  --color-cornsilk-800: #635603;
+  --color-cornsilk-900: #312b02;
+  --color-cornsilk-950: #231e01;
 
-  --black-forest: #698d3f;
-  --black-forest-secondary: #cddfb9;
-  --black-forest-hover: #4e6a2f;
-  --black-forest-active: #344620;
+  --color-sunlit-clay-50: #fbf3ea;
+  --color-sunlit-clay-100: #f6e7d5;
+  --color-sunlit-clay-200: #edceab;
+  --color-sunlit-clay-300: #e4b681;
+  --color-sunlit-clay-400: #db9d57;
+  --color-sunlit-clay-500: #d2852d;
+  --color-sunlit-clay-600: #a86a24;
+  --color-sunlit-clay-700: #7e501b;
+  --color-sunlit-clay-800: #543512;
+  --color-sunlit-clay-900: #2a1b09;
+  --color-sunlit-clay-950: #1d1306;
 
-  --cornsilk: #c6ac06;
-  --cornsilk-secondary: #fcef9c;
-  --cornsilk-hover: #948105;
-  --cornsilk-active: #635603;
+  --color-copperwood-50: #fbf2ea;
+  --color-copperwood-100: #f7e4d4;
+  --color-copperwood-200: #eecaaa;
+  --color-copperwood-300: #e6af7f;
+  --color-copperwood-400: #dd9455;
+  --color-copperwood-500: #d57a2a;
+  --color-copperwood-600: #aa6122;
+  --color-copperwood-700: #804919;
+  --color-copperwood-800: #553111;
+  --color-copperwood-900: #2b1808;
+  --color-copperwood-950: #1e1106;
 
-  --sunlit-clay: #a86a24;
-  --sunlit-clay-secondary: #edceab;
-  --sunlit-clay-hover: #7e501b;
-  --sunlit-clay-active: #543512;
+  /* Neutros */
+  --background: light-dark(#f5f5f5, #0a0a0a);
+  --background-secondary: light-dark(#ffffff, #151515);
+  --background-tertiary: light-dark(#e7e7e7, #202020);
 
-  --copperwood: #aa6122;
-  --copperwood-secondary: #eecaaa;
-  --copperwood-hover: #804919;
-  --copperwood-active: #553111;
-}
+  --foreground: light-dark(#171717, #f1f1f1);
+  --foreground-secondary: light-dark(#404040, #d4d4d4);
+  --foreground-muted: light-dark(#737373, #a3a3a3);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --background-secondary: #151515;
-    --background-tertiary: #202020;
+  --hover: light-dark(#e4e4e4, #2a2a2a);
+  --active: light-dark(#d4d4d4, #363636);
 
-    --foreground: #f1f1f1;
-    --foreground-secondary: #d4d4d4;
-    --foreground-muted: #a3a3a3;
+  /* Cores de marca */
+  --olive-leaf: var(--color-olive-leaf-600);
+  --olive-leaf-secondary: var(--color-olive-leaf-200);
+  --olive-leaf-hover: var(--color-olive-leaf-700);
+  --olive-leaf-active: var(--color-olive-leaf-800);
 
-    --hover: #2a2a2a;
-    --active: #363636;
+  --black-forest: var(--color-black-forest-600);
+  --black-forest-secondary: var(--color-black-forest-200);
+  --black-forest-hover: var(--color-black-forest-700);
+  --black-forest-active: var(--color-black-forest-800);
 
-    --olive-leaf: #aaba78;
-    --olive-leaf-secondary: #3c4323;
-    --olive-leaf-hover: #c0cb9a;
-    --olive-leaf-active: #95a857;
+  --cornsilk: var(--color-cornsilk-600);
+  --cornsilk-secondary: var(--color-cornsilk-200);
+  --cornsilk-hover: var(--color-cornsilk-700);
+  --cornsilk-active: var(--color-cornsilk-800);
 
-    --black-forest: #9cc072;
-    --black-forest-secondary: #344620;
-    --black-forest-hover: #b4d095;
-    --black-forest-active: #83b04f;
+  --sunlit-clay: var(--color-sunlit-clay-600);
+  --sunlit-clay-secondary: var(--color-sunlit-clay-200);
+  --sunlit-clay-hover: var(--color-sunlit-clay-700);
+  --sunlit-clay-active: var(--color-sunlit-clay-800);
 
-    --cornsilk: #f9df39;
-    --cornsilk-secondary: #635603;
-    --cornsilk-hover: #fae76b;
-    --cornsilk-active: #f7d708;
-
-    --sunlit-clay: #db9d57;
-    --sunlit-clay-secondary: #543512;
-    --sunlit-clay-hover: #e4b681;
-    --sunlit-clay-active: #d2852d;
-
-    --copperwood: #dd9455;
-    --copperwood-secondary: #553111;
-    --copperwood-hover: #e6af7f;
-    --copperwood-active: #d57a2a;
-  }
+  --copperwood: var(--color-copperwood-600);
+  --copperwood-secondary: var(--color-copperwood-200);
+  --copperwood-hover: var(--color-copperwood-700);
+  --copperwood-active: var(--color-copperwood-800);
 }
 
 @theme inline {
