@@ -1,34 +1,34 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useAuth } from "@/src/contexts/AuthContexts";
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/src/contexts/AuthContexts';
 
 export default function LoginPage() {
   const { login } = useAuth();
   const router = useRouter();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     try {
       await login(email, password);
-      router.push("/dashboard");
+      router.push('/dashboard');
     } catch {
-      alert("Credenciais inválidas");
+      alert('Credenciais inválidas');
     }
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="bg-black-forest dark:bg-black-forest-active min-h-screen flex items-center justify-center text-foreground">
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-8 rounded shadow-md w-80"
+        className="bg-background p-8 rounded shadow-md w-80"
       >
-        <h1 className="text-xl font-bold mb-4 text-center">Login</h1>
+        <h1 className="text-xl  font-bold mb-4 text-center">Login</h1>
 
         <input
           className="w-full border p-2 mb-3"
@@ -47,17 +47,17 @@ export default function LoginPage() {
         />
 
         <button
-          className="w-full bg-black text-white p-2 rounded"
+          className="w-full bg-black-forest dark:bg-black-forest-active hover:bg-black-forest-hover text-white p-2 rounded cursor-pointer"
           type="submit"
         >
           Entrar
         </button>
 
         <p className="text-sm text-center mt-3">
-          Não tem conta?{" "}
+          Não tem conta?{' '}
           <span
-            className="text-blue-600 cursor-pointer"
-            onClick={() => router.push("/signup")}
+            className="text-cornsilk-hover dark:text-cornsilk cursor-pointer"
+            onClick={() => router.push('/signup')}
           >
             Criar conta
           </span>
