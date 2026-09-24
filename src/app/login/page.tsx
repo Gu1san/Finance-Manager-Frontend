@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/src/contexts/AuthContexts';
 
 export default function LoginPage() {
-  const { login } = useAuth();
+  const { login, loading } = useAuth();
   const router = useRouter();
 
   const [email, setEmail] = useState('');
@@ -50,7 +50,7 @@ export default function LoginPage() {
           className="w-full bg-black-forest dark:bg-black-forest-active hover:bg-black-forest-hover text-white p-2 rounded cursor-pointer"
           type="submit"
         >
-          Entrar
+          {loading ? 'Carregando...' : 'Entrar'}
         </button>
 
         <p className="text-sm text-center mt-3">
