@@ -12,7 +12,7 @@ export default function ProtectedLayout({
     <ProtectedRoute>
       <div className="min-h-screen flex">
         <Sidebar />
-        <main className="flex-1 p-6 ml-20">{children}</main>
+        <main className="flex-1 p-6 ml-20 md:ml-40">{children}</main>
       </div>
     </ProtectedRoute>
   );
