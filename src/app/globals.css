@@ -76,6 +76,9 @@
   --hover: light-dark(#e4e4e4, #2a2a2a);
   --active: light-dark(#d4d4d4, #363636);
 
+  --danger: light-dark(var(--color-red-500), var(--color-red-500));
+  --danger-hover: light-dark(var(--color-red-200), var(--color-red-300));
+
   /* Cores de marca */
   --olive-leaf: var(--color-olive-leaf-600);
   --olive-leaf-secondary: var(--color-olive-leaf-200);
@@ -114,6 +117,9 @@
 
   --color-hover: var(--hover);
   --color-active: var(--active);
+
+  --color-danger: var(--danger);
+  --color-danger-hover: var(--danger-hover);
 
   --color-olive-leaf: var(--olive-leaf);
   --color-olive-leaf-secondary: var(--olive-leaf-secondary);
