@@ -1,22 +1,153 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
-  --background: #f1f1f1;
-  --foreground: #171717;
+  color-scheme: light dark;
+
+  /* Paleta */
+  --color-olive-leaf-50: #f4f6ee;
+  --color-olive-leaf-100: #eaeedd;
+  --color-olive-leaf-200: #d5dcbc;
+  --color-olive-leaf-300: #c0cb9a;
+  --color-olive-leaf-400: #aaba78;
+  --color-olive-leaf-500: #95a857;
+  --color-olive-leaf-600: #778745;
+  --color-olive-leaf-700: #5a6534;
+  --color-olive-leaf-800: #3c4323;
+  --color-olive-leaf-900: #1e2211;
+  --color-olive-leaf-950: #15180c;
+
+  --color-black-forest-50: #f3f7ed;
+  --color-black-forest-100: #e6efdc;
+  --color-black-forest-200: #cddfb9;
+  --color-black-forest-300: #b4d095;
+  --color-black-forest-400: #9cc072;
+  --color-black-forest-500: #83b04f;
+  --color-black-forest-600: #698d3f;
+  --color-black-forest-700: #4e6a2f;
+  --color-black-forest-800: #344620;
+  --color-black-forest-900: #1a2310;
+  --color-black-forest-950: #12190b;
+
+  --color-cornsilk-50: #fefbe6;
+  --color-cornsilk-100: #fdf7ce;
+  --color-cornsilk-200: #fcef9c;
+  --color-cornsilk-300: #fae76b;
+  --color-cornsilk-400: #f9df39;
+  --color-cornsilk-500: #f7d708;
+  --color-cornsilk-600: #c6ac06;
+  --color-cornsilk-700: #948105;
+  --color-cornsilk-800: #635603;
+  --color-cornsilk-900: #312b02;
+  --color-cornsilk-950: #231e01;
+
+  --color-sunlit-clay-50: #fbf3ea;
+  --color-sunlit-clay-100: #f6e7d5;
+  --color-sunlit-clay-200: #edceab;
+  --color-sunlit-clay-300: #e4b681;
+  --color-sunlit-clay-400: #db9d57;
+  --color-sunlit-clay-500: #d2852d;
+  --color-sunlit-clay-600: #a86a24;
+  --color-sunlit-clay-700: #7e501b;
+  --color-sunlit-clay-800: #543512;
+  --color-sunlit-clay-900: #2a1b09;
+  --color-sunlit-clay-950: #1d1306;
+
+  --color-copperwood-50: #fbf2ea;
+  --color-copperwood-100: #f7e4d4;
+  --color-copperwood-200: #eecaaa;
+  --color-copperwood-300: #e6af7f;
+  --color-copperwood-400: #dd9455;
+  --color-copperwood-500: #d57a2a;
+  --color-copperwood-600: #aa6122;
+  --color-copperwood-700: #804919;
+  --color-copperwood-800: #553111;
+  --color-copperwood-900: #2b1808;
+  --color-copperwood-950: #1e1106;
+
+  /* Neutros */
+  --background: light-dark(#f5f5f5, #0a0a0a);
+  --background-secondary: light-dark(#ffffff, #151515);
+  --background-tertiary: light-dark(#e7e7e7, #202020);
+
+  --foreground: light-dark(#171717, #f1f1f1);
+  --foreground-secondary: light-dark(#404040, #d4d4d4);
+  --foreground-muted: light-dark(#737373, #a3a3a3);
+
+  --hover: light-dark(#e4e4e4, #2a2a2a);
+  --active: light-dark(#d4d4d4, #363636);
+
+  --danger: light-dark(var(--color-red-500), var(--color-red-500));
+  --danger-hover: light-dark(var(--color-red-200), var(--color-red-300));
+
+  /* Cores de marca */
+  --olive-leaf: var(--color-olive-leaf-600);
+  --olive-leaf-secondary: var(--color-olive-leaf-200);
+  --olive-leaf-hover: var(--color-olive-leaf-700);
+  --olive-leaf-active: var(--color-olive-leaf-800);
+
+  --black-forest: var(--color-black-forest-600);
+  --black-forest-secondary: var(--color-black-forest-200);
+  --black-forest-hover: var(--color-black-forest-700);
+  --black-forest-active: var(--color-black-forest-800);
+
+  --cornsilk: var(--color-cornsilk-600);
+  --cornsilk-secondary: var(--color-cornsilk-200);
+  --cornsilk-hover: var(--color-cornsilk-700);
+  --cornsilk-active: var(--color-cornsilk-800);
+
+  --sunlit-clay: var(--color-sunlit-clay-600);
+  --sunlit-clay-secondary: var(--color-sunlit-clay-200);
+  --sunlit-clay-hover: var(--color-sunlit-clay-700);
+  --sunlit-clay-active: var(--color-sunlit-clay-800);
+
+  --copperwood: var(--color-copperwood-600);
+  --copperwood-secondary: var(--color-copperwood-200);
+  --copperwood-hover: var(--color-copperwood-700);
+  --copperwood-active: var(--color-copperwood-800);
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-background-secondary: var(--background-secondary);
+  --color-background-tertiary: var(--background-tertiary);
+
   --color-foreground: var(--foreground);
+  --color-foreground-secondary: var(--foreground-secondary);
+  --color-foreground-muted: var(--foreground-muted);
+
+  --color-hover: var(--hover);
+  --color-active: var(--active);
+
+  --color-danger: var(--danger);
+  --color-danger-hover: var(--danger-hover);
+
+  --color-olive-leaf: var(--olive-leaf);
+  --color-olive-leaf-secondary: var(--olive-leaf-secondary);
+  --color-olive-leaf-hover: var(--olive-leaf-hover);
+  --color-olive-leaf-active: var(--olive-leaf-active);
+
+  --color-black-forest: var(--black-forest);
+  --color-black-forest-secondary: var(--black-forest-secondary);
+  --color-black-forest-hover: var(--black-forest-hover);
+  --color-black-forest-active: var(--black-forest-active);
+
+  --color-cornsilk: var(--cornsilk);
+  --color-cornsilk-secondary: var(--cornsilk-secondary);
+  --color-cornsilk-hover: var(--cornsilk-hover);
+  --color-cornsilk-active: var(--cornsilk-active);
+
+  --color-sunlit-clay: var(--sunlit-clay);
+  --color-sunlit-clay-secondary: var(--sunlit-clay-secondary);
+  --color-sunlit-clay-hover: var(--sunlit-clay-hover);
+  --color-sunlit-clay-active: var(--sunlit-clay-active);
+
+  --color-copperwood: var(--copperwood);
+  --color-copperwood-secondary: var(--copperwood-secondary);
+  --color-copperwood-hover: var(--copperwood-hover);
+  --color-copperwood-active: var(--copperwood-active);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {

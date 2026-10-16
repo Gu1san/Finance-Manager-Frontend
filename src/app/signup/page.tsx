@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { useAuth } from "@/src/contexts/AuthContexts";
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { useAuth } from '@/src/contexts/AuthContexts';
 
 export default function SignupPage() {
   const router = useRouter();
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const { signup, loading } = useAuth();
 
@@ -18,17 +18,17 @@ export default function SignupPage() {
 
     try {
       await signup(name, email, password);
-      router.push("/dashboard");
+      router.push('/dashboard');
     } catch (err: any) {
-      alert(err.response?.data?.message || "Erro ao cadastrar");
+      alert(err.response?.data?.message || 'Erro ao cadastrar');
     }
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="bg-black-forest dark:bg-black-forest-active min-h-screen flex items-center justify-center text-foreground">
       <form
         onSubmit={handleSubmit}
-        className="bg-white p-8 rounded shadow-md w-80"
+        className="bg-background p-8 rounded shadow-md w-80"
       >
         <h1 className="text-xl font-bold mb-4 text-center">Cadastro</h1>
 
@@ -56,18 +56,18 @@ export default function SignupPage() {
         />
 
         <button
-          className="w-full bg-black text-white p-2 rounded mb-3"
+          className="w-full bg-black-forest dark:bg-black-forest-active hover:bg-black-forest-hover text-white p-2 rounded mb-3 cursor-pointer"
           type="submit"
           disabled={loading}
         >
-          {loading ? "Cadastrando..." : "Cadastrar"}
+          {loading ? 'Cadastrando...' : 'Cadastrar'}
         </button>
 
         <p className="text-sm text-center">
-          Já tem conta?{" "}
+          Já tem conta?{' '}
           <span
-            className="text-blue-600 cursor-pointer"
-            onClick={() => router.push("/login")}
+            className="text-cornsilk-hover dark:text-cornsilk cursor-pointer"
+            onClick={() => router.push('/login')}
           >
             Entrar
           </span>
