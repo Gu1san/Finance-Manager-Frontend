@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { ReportPeriodOption } from "../hooks/useReports";
+import { useState } from 'react';
+import { ReportPeriodOption } from '../hooks/useReports';
 
 interface PeriodSelectorProps {
   period: ReportPeriodOption;
@@ -22,28 +22,28 @@ const periodOptions: {
   label: string;
 }[] = [
   {
-    value: "last-month",
-    label: "Último mês",
+    value: 'last-month',
+    label: 'Último mês',
   },
   {
-    value: "last-3-months",
-    label: "Últimos 3 meses",
+    value: 'last-3-months',
+    label: 'Últimos 3 meses',
   },
   {
-    value: "last-6-months",
-    label: "Últimos 6 meses",
+    value: 'last-6-months',
+    label: 'Últimos 6 meses',
   },
   {
-    value: "this-year",
-    label: "Este ano",
+    value: 'this-year',
+    label: 'Este ano',
   },
   {
-    value: "all",
-    label: "Todo o período",
+    value: 'all',
+    label: 'Todo o período',
   },
   {
-    value: "custom",
-    label: "Personalizado",
+    value: 'custom',
+    label: 'Personalizado',
   },
 ];
 
@@ -57,7 +57,7 @@ export default function PeriodSelector({
   const [customOpen, setCustomOpen] = useState(false);
 
   function handlePeriodChange(value: ReportPeriodOption) {
-    if (value === "custom") {
+    if (value === 'custom') {
       setCustomOpen(true);
       return;
     }
@@ -74,7 +74,7 @@ export default function PeriodSelector({
   return (
     <>
       <div className="flex items-center gap-3">
-        <label htmlFor="period" className="text-sm font-medium">
+        <label htmlFor="period" className="sr-only text-sm font-medium">
           Período
         </label>
 
@@ -84,7 +84,7 @@ export default function PeriodSelector({
           onChange={(e) =>
             handlePeriodChange(e.target.value as ReportPeriodOption)
           }
-          className="rounded-lg border border-border bg-background-secondary px-3 py-2 text-sm outline-none focus:ring-2"
+          className="rounded-full border border-cornsilk bg-olive-leaf/50 px-2 py-2.5 text-md outline-none focus:ring-2"
         >
           {periodOptions.map((option) => (
             <option key={option.value} value={option.value}>
@@ -114,7 +114,7 @@ export default function PeriodSelector({
                 <input
                   type="date"
                   className="w-full rounded-lg border border-border bg-background-primary p-2.5"
-                  value={customPeriod.from ?? ""}
+                  value={customPeriod.from ?? ''}
                   onChange={(e) =>
                     onCustomPeriodChange({
                       ...customPeriod,
@@ -132,7 +132,7 @@ export default function PeriodSelector({
                 <input
                   type="date"
                   className="w-full rounded-lg border border-border bg-background-primary p-2.5"
-                  value={customPeriod.to ?? ""}
+                  value={customPeriod.to ?? ''}
                   onChange={(e) =>
                     onCustomPeriodChange({
                       ...customPeriod,

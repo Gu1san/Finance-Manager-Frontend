@@ -1,4 +1,4 @@
-import api from "../api/api";
+import api from '../api/api';
 
 export type ReportPeriod = {
   from?: string;
@@ -23,7 +23,7 @@ export interface IBalanceEvolution {
 
 export const reportService = {
   async getSummary(period?: ReportPeriod): Promise<IReportSummary> {
-    const { data } = await api.get("/reports/summary", {
+    const { data } = await api.get('/reports/summary', {
       params: period,
     });
 
@@ -33,7 +33,7 @@ export const reportService = {
   async getExpensesByCategory(
     period?: ReportPeriod,
   ): Promise<ICategoryReport[]> {
-    const { data } = await api.get("/reports/expenses-by-category", {
+    const { data } = await api.get('/reports/expenses-by-category', {
       params: period,
     });
 
@@ -41,7 +41,7 @@ export const reportService = {
   },
 
   async getIncomeByCategory(period?: ReportPeriod): Promise<ICategoryReport[]> {
-    const { data } = await api.get("/reports/income-by-category", {
+    const { data } = await api.get('/reports/income-by-category', {
       params: period,
     });
 
@@ -51,7 +51,7 @@ export const reportService = {
   async getBalanceEvolution(
     period?: ReportPeriod,
   ): Promise<IBalanceEvolution[]> {
-    const { data } = await api.get("/reports/balance-evolution", {
+    const { data } = await api.get('/reports/balance-evolution', {
       params: period,
     });
 

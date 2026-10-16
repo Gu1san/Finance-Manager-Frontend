@@ -1,19 +1,9 @@
-import { ArrowDown, ArrowUp } from "lucide-react";
-import { ITransaction } from "../types";
+import { ArrowDown, ArrowUp } from 'lucide-react';
+import { ITransaction } from '../types';
+import { formatCurrency, formatDate } from '../services/utils';
 
 interface RecentTransactionsProps {
   transactions: ITransaction[];
-}
-
-function formatCurrency(value: number | string) {
-  return Number(value).toLocaleString("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  });
-}
-
-function formatDate(date: string) {
-  return new Date(`${date}T00:00:00`).toLocaleDateString("pt-BR");
 }
 
 export default function RecentTransactions({
@@ -36,7 +26,7 @@ export default function RecentTransactions({
   return (
     <div className="divide-y divide-border">
       {recentTransactions.map((transaction) => {
-        const isIncome = transaction.type === "entrada";
+        const isIncome = transaction.type === 'entrada';
 
         return (
           <div
@@ -60,7 +50,7 @@ export default function RecentTransactions({
             </div>
 
             <p className="shrink-0 text-sm font-semibold">
-              {isIncome ? "+" : "-"} {formatCurrency(transaction.amount)}
+              {isIncome ? '+' : '-'} {formatCurrency(transaction.amount)}
             </p>
           </div>
         );

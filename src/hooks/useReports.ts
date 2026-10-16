@@ -1,22 +1,23 @@
-"use client";
+'use client';
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from 'react';
 import {
   reportService,
   ReportPeriod,
   IReportSummary,
   ICategoryReport,
   IBalanceEvolution,
-} from "../services/reportService";
-import { useAuth } from "../contexts/AuthContexts";
+} from '../services/reportService';
+import { useAuth } from '../contexts/AuthContexts';
+import { formatDate } from '../services/utils';
 
 export type ReportPeriodOption =
-  | "last-month"
-  | "last-3-months"
-  | "last-6-months"
-  | "this-year"
-  | "all"
-  | "custom";
+  | 'last-month'
+  | 'last-3-months'
+  | 'last-6-months'
+  | 'this-year'
+  | 'all'
+  | 'custom';
 
 interface UseReportsReturn {
   summary: IReportSummary;
@@ -44,14 +45,14 @@ const initialSummary: IReportSummary = {
 };
 
 const emptyPeriod: ReportPeriod = {
-  from: "",
-  to: "",
+  from: '',
+  to: '',
 };
 
-function formatDate(date: Date): string {
+function formatFullDate(date: Date): string {
   const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
 
   return `${year}-${month}-${day}`;
 }
@@ -63,7 +64,7 @@ function getPeriodDates(
   const today = new Date();
 
   switch (option) {
-    case "last-month": {
+    case 'last-month': {
       const firstDayLastMonth = new Date(
         today.getFullYear(),
         today.getMonth() - 1,
@@ -77,39 +78,39 @@ function getPeriodDates(
       );
 
       return {
-        from: formatDate(firstDayLastMonth),
-        to: formatDate(lastDayLastMonth),
+        from: formatFullDate(firstDayLastMonth),
+        to: formatFullDate(lastDayLastMonth),
       };
     }
 
-    case "last-3-months": {
+    case 'last-3-months': {
       const from = new Date(today.getFullYear(), today.getMonth() - 2, 1);
 
       return {
-        from: formatDate(from),
-        to: formatDate(today),
+        from: formatFullDate(from),
+        to: formatFullDate(today),
       };
     }
 
-    case "last-6-months": {
+    case 'last-6-months': {
       const from = new Date(today.getFullYear(), today.getMonth() - 5, 1);
 
       return {
-        from: formatDate(from),
-        to: formatDate(today),
+        from: formatFullDate(from),
+        to: formatFullDate(today),
       };
     }
 
-    case "this-year":
+    case 'this-year':
       return {
         from: `${today.getFullYear()}-01-01`,
-        to: formatDate(today),
+        to: formatFullDate(today),
       };
 
-    case "custom":
+    case 'custom':
       return customPeriod;
 
-    case "all":
+    case 'all':
     default:
       return {};
   }
@@ -118,7 +119,7 @@ function getPeriodDates(
 export function useReports(): UseReportsReturn {
   const { isAuthenticated } = useAuth();
 
-  const [period, setPeriod] = useState<ReportPeriodOption>("last-month");
+  const [period, setPeriod] = useState<ReportPeriodOption>('last-month');
 
   // Valores que o usuário está editando no seletor
   const [customPeriod, setCustomPeriod] = useState<ReportPeriod>(emptyPeriod);
@@ -150,13 +151,13 @@ export function useReports(): UseReportsReturn {
     }
 
     if (customPeriod.from > customPeriod.to) {
-      setError("A data inicial deve ser anterior à data final.");
+      setError('A data inicial deve ser anterior à data final.');
       return;
     }
 
     setError(null);
     setAppliedCustomPeriod(customPeriod);
-    setPeriod("custom");
+    setPeriod('custom');
   }, [customPeriod]);
 
   const refresh = useCallback(async () => {
@@ -171,7 +172,7 @@ export function useReports(): UseReportsReturn {
 
     const dates = getPeriodDates(period, appliedCustomPeriod);
 
-    if (period === "custom" && (!dates.from || !dates.to)) {
+    if (period === 'custom' && (!dates.from || !dates.to)) {
       setLoading(false);
       return;
     }
@@ -188,13 +189,18 @@ export function useReports(): UseReportsReturn {
           reportService.getBalanceEvolution(dates),
         ]);
 
+      const formattedEvolutionData = evolutionData.map((data) => ({
+        ...data,
+        date: formatDate(data.date),
+      }));
+
       setSummary(summaryData);
       setExpensesByCategory(expensesData);
       setIncomeByCategory(incomeData);
-      setBalanceEvolution(evolutionData);
+      setBalanceEvolution(formattedEvolutionData);
     } catch (err) {
       console.error(err);
-      setError("Não foi possível carregar os relatórios.");
+      setError('Não foi possível carregar os relatórios.');
     } finally {
       setLoading(false);
     }
