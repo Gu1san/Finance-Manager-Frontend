@@ -1,6 +1,7 @@
 'use client';
 import { Trash2 } from 'lucide-react';
 import { useTransactionContext } from '@/src//hooks/useTransaction';
+import { formatDate } from '@/src/services/utils';
 
 export default function Report() {
   const { transactions, deleteTransaction } = useTransactionContext();
@@ -33,7 +34,7 @@ export default function Report() {
                       <p className="text-sm text-gray-300">
                         {t.category}{' '}
                         <span className="text-sunlit-clay-secondary">•</span>{' '}
-                        {new Date(t.date).toLocaleDateString('pt-BR')}
+                        {formatDate(t.date)}
                       </p>
                     </div>
                     <div className="flex items-center gap-4">

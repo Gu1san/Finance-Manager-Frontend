@@ -22,6 +22,10 @@ const periodOptions: {
   label: string;
 }[] = [
   {
+    value: 'current-month',
+    label: 'Mês atual',
+  },
+  {
     value: 'last-month',
     label: 'Último mês',
   },

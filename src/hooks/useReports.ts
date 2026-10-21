@@ -12,6 +12,7 @@ import { useAuth } from '../contexts/AuthContexts';
 import { formatDate } from '../services/utils';
 
 export type ReportPeriodOption =
+  | 'current-month'
   | 'last-month'
   | 'last-3-months'
   | 'last-6-months'
@@ -53,7 +54,6 @@ function formatFullDate(date: Date): string {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
   const day = String(date.getDate()).padStart(2, '0');
-
   return `${year}-${month}-${day}`;
 }
 
@@ -64,6 +64,14 @@ function getPeriodDates(
   const today = new Date();
 
   switch (option) {
+    case 'current-month': {
+      const from = new Date(today.getFullYear(), today.getMonth(), 1);
+      return {
+        from: formatFullDate(from),
+        to: formatFullDate(today),
+      };
+    }
+
     case 'last-month': {
       const firstDayLastMonth = new Date(
         today.getFullYear(),
@@ -119,7 +127,7 @@ function getPeriodDates(
 export function useReports(): UseReportsReturn {
   const { isAuthenticated } = useAuth();
 
-  const [period, setPeriod] = useState<ReportPeriodOption>('last-month');
+  const [period, setPeriod] = useState<ReportPeriodOption>('current-month');
 
   // Valores que o usuário está editando no seletor
   const [customPeriod, setCustomPeriod] = useState<ReportPeriod>(emptyPeriod);
