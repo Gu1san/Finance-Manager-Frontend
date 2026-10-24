@@ -1,4 +1,5 @@
 import api from '../api';
+import { TransactionFormData } from '../components/TransactionModal';
 import { ITransaction } from '../types';
 
 export const transactionService = {
@@ -28,7 +29,7 @@ export const transactionService = {
     return data;
   },
 
-  async create(transaction: Omit<ITransaction, 'id'>) {
+  async create(transaction: TransactionFormData) {
     await api.post('/transactions', {
       ...transaction,
       amount: Number(transaction.amount),
