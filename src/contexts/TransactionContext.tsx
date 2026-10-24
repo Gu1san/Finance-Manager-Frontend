@@ -1,19 +1,14 @@
-"use client";
+'use client';
 
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  ReactNode,
-} from "react";
-import { ITransaction } from "../types";
-import { transactionService } from "../services/transactionService";
-import { useAuth } from "./AuthContexts";
+import { createContext, useEffect, useState, ReactNode } from 'react';
+import { ITransaction } from '../types';
+import { transactionService } from '../services/transactionService';
+import { useAuth } from './AuthContexts';
+import { TransactionFormData } from '../components/TransactionModal';
 
 interface TransactionContextData {
   transactions: ITransaction[];
-  createTransaction: (data: Omit<ITransaction, "id">) => Promise<void>;
+  createTransaction: (data: TransactionFormData) => Promise<void>;
   deleteTransaction: (id: string) => Promise<void>;
   refresh: () => Promise<void>;
 }
@@ -38,7 +33,7 @@ export function TransactionProvider({ children }: { children: ReactNode }) {
     setTransactions(data);
   }
 
-  async function createTransaction(data: Omit<ITransaction, "id">) {
+  async function createTransaction(data: TransactionFormData) {
     await transactionService.create(data);
     await refresh();
   }
@@ -49,11 +44,12 @@ export function TransactionProvider({ children }: { children: ReactNode }) {
   }
 
   useEffect(() => {
-    if (isAuthenticated) {
-      refresh();
-    } else {
-      setTransactions([]);
+    if (!isAuthenticated) {
+      Promise.resolve().then(() => setTransactions([]));
+      return;
     }
+
+    Promise.resolve().then(() => refresh());
   }, [isAuthenticated]);
 
   return (

@@ -6,5 +6,8 @@ export function formatCurrency(value: number | string) {
 }
 
 export function formatDate(date: string) {
-  return new Date(date).toLocaleDateString('pt-BR');
+  const datePart = date.slice(0, 10);
+  const [year, month, day] = datePart.split('-');
+
+  return `${day}/${month}/${year}`;
 }

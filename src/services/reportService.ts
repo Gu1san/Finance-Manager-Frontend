@@ -1,4 +1,4 @@
-import api from '../api/api';
+import api from '../api';
 
 export type ReportPeriod = {
   from?: string;
@@ -26,7 +26,7 @@ export const reportService = {
     const { data } = await api.get('/reports/summary', {
       params: period,
     });
-
+    console.log(data);
     return data;
   },
 
@@ -54,7 +54,6 @@ export const reportService = {
     const { data } = await api.get('/reports/balance-evolution', {
       params: period,
     });
-
     return data;
   },
 };

@@ -1,5 +1,5 @@
-import { ArrowDown, ArrowUp } from "lucide-react";
-import { IReportSummary } from "../services/reportService";
+import { ArrowDown, ArrowUp } from 'lucide-react';
+import { IReportSummary } from '../services/reportService';
 
 interface BalanceSummaryProps {
   summary: IReportSummary;
@@ -11,11 +11,11 @@ export default function BalanceSummary({ summary }: BalanceSummaryProps) {
   return (
     <div className="flex h-full flex-col justify-between gap-8">
       <div>
-        <p className="text-sm text-foreground-secondary">Saldo atual</p>
+        <p className="text-sm text-foreground-secondary">Saldo do período</p>
 
         <p className="mt-2 text-4xl font-bold tracking-tight">
-          R${" "}
-          {resultado.toLocaleString("pt-BR", {
+          R${' '}
+          {resultado.toLocaleString('pt-BR', {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2,
           })}
@@ -30,8 +30,8 @@ export default function BalanceSummary({ summary }: BalanceSummaryProps) {
           </div>
 
           <p className="mt-1 text-lg font-semibold">
-            R${" "}
-            {entradas.toLocaleString("pt-BR", {
+            R${' '}
+            {entradas.toLocaleString('pt-BR', {
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,
             })}
@@ -45,8 +45,8 @@ export default function BalanceSummary({ summary }: BalanceSummaryProps) {
           </div>
 
           <p className="mt-1 text-lg font-semibold">
-            R${" "}
-            {saidas.toLocaleString("pt-BR", {
+            R${' '}
+            {saidas.toLocaleString('pt-BR', {
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,
             })}

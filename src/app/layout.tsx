@@ -6,6 +6,7 @@ import { TransactionProvider } from '../contexts/TransactionContext';
 import { AuthProvider } from '../contexts/AuthContexts';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { Analytics } from '@vercel/analytics/next';
+import { CategoryProvider } from '../contexts/CategoryContext';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -33,7 +34,9 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <AuthProvider>
-          <TransactionProvider>{children}</TransactionProvider>
+          <CategoryProvider>
+            <TransactionProvider>{children}</TransactionProvider>
+          </CategoryProvider>
         </AuthProvider>
       </body>
       <SpeedInsights />
