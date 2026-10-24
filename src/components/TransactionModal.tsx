@@ -15,7 +15,7 @@ import {
 } from '@headlessui/react';
 import { Check, ChevronDown, ChevronsUpDown } from 'lucide-react';
 
-interface TransactionFormData {
+export interface TransactionFormData {
   description: string;
   amount: number;
   category_id: number;
